@@ -103,7 +103,7 @@ class PickerModal extends React.Component {
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
               <View style={styles.buttonBar}>
-                <ModalButton label={this.props.doneLabel || "Done"} onPress={this.bindings.closePicker} />
+                <ModalButton label={props.doneLabel || "Done"} onPress={this.bindings.closePicker} />
               </View>
               <Picker {...props} onValueChange={this.bindings.onValueChange}>{this.props.children}</Picker>
             </View>
