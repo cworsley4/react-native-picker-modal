@@ -68,6 +68,7 @@ class PickerModal extends React.Component {
   }
 
   closePicker() {
+    this.props.onClose();
     this.setState({ open: false });
   }
 
@@ -78,7 +79,7 @@ class PickerModal extends React.Component {
   getSelectedItem() {
     const childrenArray = React.Children.toArray(this.props.children);
     let selected = childrenArray.find(child => child.props.value === this.props.selectedValue);
-    
+
     if (selected) {
       return selected;
     }
@@ -91,19 +92,19 @@ class PickerModal extends React.Component {
     delete props.style;
     delete props.children;
     delete props.onValueChange;
-    
+
     const picker = (
       <Modal
         animationType={'slide'}
         visible={this.state.open}
         transparent={true}
         onRequestClose={this.bindings.togglePicker}>
-        <TouchableWithoutFeedback onPress={this.bindings.closePicker}>  
+        <TouchableWithoutFeedback onPress={this.bindings.closePicker}>
           <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
               <View style={styles.buttonBar}>
-                <ModalButton label="Done" onPress={this.bindings.closePicker} />
-              </View>  
+                <ModalButton label={this.props.doneLabel || "Done"} onPress={this.bindings.closePicker} />
+              </View>
               <Picker {...props} onValueChange={this.bindings.onValueChange}>{this.props.children}</Picker>
             </View>
           </View>
@@ -136,10 +137,11 @@ class ModalButton extends React.Component {
             style={styles.buttonText}>
             {label}
           </Text>
-        </View>  
+        </View>
       </TouchableOpacity>
     );
   }
 }
 
 export default PickerModal;
+
